@@ -176,10 +176,19 @@ Models trained: `Qwen/Qwen3-VL-4B-Instruct` and `Qwen/Qwen3-VL-8B-Instruct`
 | **DPO** | Direct preference optimization on chosen/rejected pairs |
 
 ### Evaluation
-- **GPT-4o / GPT-5.4**: Image quality and action planning assessment
-- **Standard metrics**: LPIPS, PSNR, SSIM, CLIP Score
-- **Planner metrics**: F1, IoU, Precision, Recall
-- **Parallel evaluation**: Multi-GPU evaluation support
+
+**Training-time reward judges:**
+- **GPT-4o** — action plan quality scoring and image quality reward during data generation
+
+**Post-hoc evaluation judges (three-judge protocol):**
+- **GPT-5.4** — image quality judge (6-dimension rubric, 0–100 scale)
+- **Gemini 3.1 Flash Lite** — image quality judge (same rubric)
+- **Claude Opus 4.6** — image quality judge (same rubric)
+
+**Planner baseline:**
+- **Gemini 2.5 Flash** — zero-shot planner reference (not used in training)
+
+**Automated metrics:** LPIPS, PSNR, SSIM, CLIP Score, F1, IoU, Precision, Recall
 
 ## 🔗 Related Documentation
 
