@@ -6,8 +6,8 @@ A complete pipeline for image generation, analysis, editing, and action planning
 
 ImageAgent is an end-to-end system that:
 1. **Generates** images using HiDream-I1
-2. **Analyzes** images using Qwen-VL models
-3. **Plans** actions using fine-tuned vision-language models
+2. **Analyzes** images using Qwen3-VL (4B/8B)
+3. **Plans** actions using fine-tuned Qwen3-VL-4B or Qwen3-VL-8B
 4. **Edits** images using Qwen-Image-Edit (20B) — HiDream-E1 is also supported as an alternative
 5. **Evaluates** results using GPT-4o and standard metrics
 
@@ -122,7 +122,7 @@ The project uses three main datasets:
 - Conda (Miniconda or Anaconda)
 - HiDream-I1 (image generation)
 - Qwen-Image-Edit (image editing, default) or HiDream-E1 (alternative editor)
-- Qwen-VL models (4B/8B variants, for analysis and action planning)
+- Qwen3-VL-4B-Instruct or Qwen3-VL-8B-Instruct (image analysis and action planning)
 
 ## ⚙️ Environment Setup
 
@@ -159,19 +159,24 @@ conda activate img-agent
 
 ### Data Generation
 - **HiDream-I1**: Image generation model
+- **Qwen3-VL-4B/8B**: Image analysis and action plan annotation
 - **Qwen-Image-Edit (20B)**: Primary image editing model (default: `--model-editor qwen`)
 - **Batch generators**: Efficient multi-image generation
 - **Pipeline orchestrator**: End-to-end data creation
 
-### Training
-- **Standard**: Baseline fine-tuning
-- **RL**: Reinforcement learning with reward filtering
-- **RW**: Reward-weighted training
-- **DPO**: Direct preference optimization
-- **SW**: Standardized weighted training
+### Training (Action Planner)
+Models trained: `Qwen/Qwen3-VL-4B-Instruct` and `Qwen/Qwen3-VL-8B-Instruct`
+
+| Method | Description |
+|--------|-------------|
+| **Standard** | Baseline supervised fine-tuning |
+| **RL** | Reward-filtered training (reward ≥ 4.0) |
+| **RW** | Reward-weighted gradient scaling |
+| **SW** | Standardized reward-weighted (z-score normalized) |
+| **DPO** | Direct preference optimization on chosen/rejected pairs |
 
 ### Evaluation
-- **GPT-4o**: Action planning and image quality assessment
+- **GPT-4o / GPT-5.4**: Image quality and action planning assessment
 - **Standard metrics**: LPIPS, PSNR, SSIM, CLIP Score
 - **Planner metrics**: F1, IoU, Precision, Recall
 - **Parallel evaluation**: Multi-GPU evaluation support
