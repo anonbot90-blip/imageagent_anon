@@ -1,0 +1,56 @@
+# ImageAgent Requirements - HiDream + Qwen-VL + HiDream-E1
+
+# Core PyTorch and Vision
+torch>=2.5.1
+torchvision>=0.20.1
+transformers>=4.47.1
+diffusers==0.35.2  # Pin to 0.35.2 for flash-attn 2.6.3 compatibility (0.36+ breaks)
+accelerate>=1.2.1
+einops>=0.7.0
+
+# HiDream specific
+sentencepiece>=0.2.0
+protobuf==3.20.3
+huggingface_hub
+flash-attn==2.6.3
+
+# Qwen-VL dependencies
+tiktoken
+transformers_stream_generator
+auto-gptq
+optimum
+qwen-vl-utils
+
+# Image processing and analysis
+pillow>=11.1.0
+opencv-python
+scikit-image
+numpy
+scipy
+
+# Training and optimization (from VLM)
+datasets>=3.5.0
+trl>=0.12.0
+peft>=0.13.0
+bitsandbytes>=0.45.0
+deepspeed==0.15.0
+
+# Evaluation and metrics
+lpips
+clip @ git+https://github.com/openai/CLIP.git
+matplotlib
+seaborn
+
+# Interface and utilities
+gradio>=5.24.0
+wandb
+tensorboard
+tqdm
+
+# JSON and data handling
+jsonlines
+h5py  # For cached embeddings storage
+omegaconf>=2.3.0  # Required for training configuration
+
+# LaTeX compilation (install via conda-forge)
+# tectonic  # Install with: conda install -c conda-forge tectonic -y

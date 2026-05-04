@@ -1,0 +1,121 @@
+# Large data directories (excluded from git)
+checkpoints/
+training_data/
+imageagent_results_*/
+evaluation_results/
+evaluation_results_final/
+evaluation_results_final_*/
+consolidated_results_*/
+archive/
+wandb/
+
+# Exclude examples from consolidated_results (but include other files)
+consolidated_results/*/examples/
+consolidated_results/*/*/examples/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+.directory
+
+# Logs
+*.log
+logs/
+*.out
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Environment
+.env
+.venv
+venv/
+ENV/
+
+# Model files (if any are accidentally in repo)
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Generated images (if any) — excluded globally except latex figures
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+!config/**/*.png
+!latex/**/*.png
+!latex/**/*.jpg
+!latex/**/*.jpeg
+
+# Large JSON files (generated data)
+full_dataset_for_eval.json
+*_manifest.json
+*_log.json
+
+# Credentials
+credentials.sh
+*.key
+*.pem
+
+# Backup files
+*_backup/
+*_old/
+*.backup
+
+
+# Large dirs added 2026-03-24
+human_eval/
+HiDream-E1/
+HiDream-I1/
+analysis/
+hf_dataset/
+
+# latex: only track neurips2026/; exclude old versions, backups, compiled artifacts
+latex/archive/
+latex/icml2026/
+latex/icml2026_final/
+latex/icml2026_rebuttal/
+latex/img/
+latex/img_backup_01272026/
+latex/img_backup_20260427_225701_pre_gemini25_regen/
+latex/appendix/
+latex/neurips2026/main.pdf
+latex/neurips2026/*.aux
+latex/neurips2026/*.log
+latex/neurips2026/*.blg
+latex/neurips2026/*.bbl
+latex/neurips2026/*.xdv
+latex/neurips2026/*.out
+latex/neurips2026/*.toc
+latex/neurips2026/*.fls
+latex/neurips2026/*.fdb_latexmk
+
+# papers: include .md summaries, exclude large PDFs
+papers/original/

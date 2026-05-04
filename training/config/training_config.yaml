@@ -1,0 +1,108 @@
+# HiDream-E1 LoRA Finetuning Configuration
+
+# Model Configuration
+model:
+  base_model_path: "HiDream-ai/HiDream-E1-Full"  # HiDream-E1 editing model (loads from HuggingFace)
+  local_model_path: "./HiDream-E1"  # Local HiDream-E1 path (not used, has git-lfs issues)
+  llama_model: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  dtype: "bfloat16"
+  device: "cuda"
+  
+# LoRA Configuration
+lora:
+  rank: 16  # Can increase to 32 or 64 for more capacity
+  alpha: 16
+  dropout: 0.0
+  target_modules:
+    - "to_k"
+    - "to_q" 
+    - "to_v"
+    - "to_out"
+    - "to_k_t"
+    - "to_q_t"
+    - "to_v_t"
+    - "to_out_t"
+    - "w1"
+    - "w2"
+    - "w3"
+    - "final_layer.linear"
+  bias: "none"
+  task_type: null  # Not needed for diffusion models
+
+# Data Configuration
+data:
+  data_dirs:
+    - "./imageagent_results_training_300"  # 293 augmented samples
+  train_split: 0.9  # 90% train, 10% val
+  val_split: 0.1
+  resolution: 768  # Training resolution (matches official HiDream-E1 examples)
+  center_crop: true
+  random_flip: false  # Disable for semantic consistency
+  cache_latents: false  # Cache VAE latents to speed up training
+  
+# Training Configuration
+training:
+  output_dir: "./checkpoints/hidream_e1_lora_theme_transform"
+  num_epochs: 5  # Can increase if not overfitting
+  train_batch_size: 1  # Per GPU
+  gradient_accumulation_steps: 4  # Effective batch size = 4
+  learning_rate: 1.0e-4
+  lr_scheduler: "cosine"
+  lr_warmup_steps: 100
+  lr_warmup_ratio: 0.1
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1.0e-8
+  mixed_precision: "bf16"
+  gradient_checkpointing: true
+  use_8bit_adam: false  # Set true to save memory
+  
+# Diffusion Configuration  
+diffusion:
+  num_train_timesteps: 1000
+  num_inference_steps: 28
+  guidance_scale: 5.0
+  image_guidance_scale: 4.0
+  prediction_type: "v_prediction"  # or "epsilon"
+  
+# Loss Configuration
+loss:
+  use_weighted_loss: true  # Weight loss by changed regions
+  weight_threshold: 0.1  # Threshold for diff mask
+  perceptual_loss_weight: 0.1  # LPIPS loss weight (0.1 = balanced with flow matching loss)
+  
+# Validation Configuration
+validation:
+  validation_epochs: 5  # Validate every N epochs
+  num_validation_samples: 4  # Number of samples to generate
+  save_model_epochs: 1  # Save checkpoint every N epochs
+  keep_last_n_checkpoints: 3  # Keep only last N checkpoints
+  
+# Logging Configuration
+logging:
+  use_wandb: true  # Set true if you have wandb setup
+  wandb_project: "img-agent-train"
+  wandb_entity: null
+  wandb_run_name: "hidream_e1_lora_theme_transform"
+  log_every_n_steps: 10
+  log_images_every_n_epochs: 5
+  report_to: "wandb"  # or "tensorboard" or "none"
+  
+# Hardware Configuration
+hardware:
+  num_processes: 8  # Use 8 GPUs for multi-GPU training
+  use_cpu: false
+  enable_xformers: false  # Disabled due to flash-attn compatibility issue
+  allow_tf32: true  # Faster on Ampere+ GPUs
+  
+# Reproducibility
+seed: 42
+deterministic: false  # Set true for reproducible results (slower)
+
+# Resume Training
+resume:
+  resume_from_checkpoint: null  # Path to checkpoint to resume from
+  resume_optimizer: true  # Resume optimizer state
+

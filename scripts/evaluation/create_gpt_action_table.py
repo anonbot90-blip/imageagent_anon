@@ -1,0 +1,232 @@
+#!/usr/bin/env python3
+"""
+Create GPT-4o Action Judge comparison table from evaluation results.
+Reads gpt4o_action_scores_val.json from each model and creates a visual comparison table.
+Format: Metrics in rows, Models in columns (matching planner_metrics_table.png format)
+"""
+
+import json
+import argparse
+from pathlib import Path
+import matplotlib.pyplot as plt
+import numpy as np
+
+def load_gpt_scores(model_dir: Path) -> dict:
+    """Load GPT-4o action scores from a model directory."""
+    # Try both all and test scores files (Edit-Only uses test)
+    scores_file = model_dir / "gpt4o_action_scores_all.json"
+    if not scores_file.exists():
+        scores_file = model_dir / "gpt4o_action_scores_test.json"
+    
+    if not scores_file.exists():
+        return None
+    
+    with open(scores_file, 'r') as f:
+        return json.load(f)
+
+def create_gpt_action_table(model_dirs: dict, output_path: Path):
+    """Create a comparison table of GPT-4o action judge scores."""
+    
+    # Load scores from all models
+    all_scores = {}
+    for model_name, model_dir in model_dirs.items():
+        scores = load_gpt_scores(Path(model_dir))
+        if scores and 'aggregated_scores' in scores:
+            all_scores[model_name] = scores['aggregated_scores']
+    
+    if not all_scores:
+        print("⚠️  No GPT-4o action scores found in any model directory")
+        return
+    
+    # Metrics to display (in rows)
+    # Updated to include 3 reasoning quality metrics + 2 overall metrics
+    metrics = [
+        ('Relevance', 'relevance', True),
+        ('Theme/Style Focus', 'theme_style_focus', True),
+        ('Completeness', 'completeness', True),
+        ('Efficiency', 'efficiency', True),
+        ('Correctness', 'correctness', True),
+        ('Reasoning Conciseness', 'reasoning_conciseness', True),
+        ('Reasoning Completeness', 'reasoning_completeness', True),
+        ('Reasoning Specificity', 'reasoning_specificity', True),
+        ('Overall Action Quality', 'overall_action_quality', True),
+        ('Overall Reasoning Qual.', 'overall_reasoning_quality', True),
+        ('─' * 25, None, None),  # Separator
+        ('OVERALL SCORE', 'overall_score', True),
+    ]
+    
+    # Model order (Edit-Only will show N/A - doesn't use planner)
+    model_order = ["Baseline", "Edit-Only", "Standard", "RL", "RW", "DPO", "SW", "GPT-4o"]
+    
+    # Prepare table data: Metrics in rows, Models in columns
+    table_data = []
+    
+    # Header row: Metric | B | E | S | R | RW | D | SW | GPT-4o | Winner
+    header = ['Metric', 'B', 'E', 'S', 'R', 'RW', 'D', 'SW', 'GPT-4o', 'Winner']
+    table_data.append(header)
+    
+    # Track cells to bold (row, col)
+    bold_cells = []
+    
+    # Get number of columns from header
+    n_cols = len(header)
+    
+    # Data rows - one row per metric
+    for metric_label, metric_key, higher_is_better in metrics:
+        row = [metric_label]
+        
+        # Handle separator rows
+        if metric_key is None:
+            # Create separator row spanning all columns
+            row.extend(['─' * 4] * (n_cols - 1))
+            table_data.append(row)
+            continue
+        
+        # Collect values for all models
+        values = []
+        for model_name in model_order:
+            # Edit-Only has no action plan, so always N/A
+            if model_name == "Edit-Only":
+                values.append(None)
+            elif model_name in all_scores:
+                # Try with _mean suffix first (for other models), then without (for GPT-4o)
+                mean_key = f'{metric_key}_mean'
+                if mean_key in all_scores[model_name]:
+                    values.append(all_scores[model_name][mean_key])
+                elif metric_key in all_scores[model_name]:
+                    values.append(all_scores[model_name][metric_key])
+                else:
+                    values.append(None)
+            else:
+                values.append(None)
+        
+        # Format values
+        for i, val in enumerate(values):
+            if val is not None:
+                row.append(f'{val:.2f}')
+            else:
+                row.append('N/A')
+        
+        # Determine winner (highest value) - exclude Edit-Only (index 1)
+        valid_values = [(i, v) for i, v in enumerate(values) if v is not None and i != 1]  # Skip Edit-Only
+        if valid_values:
+            if higher_is_better:
+                winner_idx = max(valid_values, key=lambda x: x[1])[0]
+            else:
+                winner_idx = min(valid_values, key=lambda x: x[1])[0]
+            
+            winner_abbrevs = ['B', 'E', 'S', 'R', 'RW', 'D', 'SW', 'GPT-4o']
+            winner_abbrev = winner_abbrevs[winner_idx]
+            row.append(winner_abbrev)
+            
+            # Bold the winner's cell (row_idx, col_idx)
+            # row_idx = len(table_data), col_idx = winner_idx + 1 (skip metric name column)
+            bold_cells.append((len(table_data), winner_idx + 1))
+        else:
+            row.append('-')
+        
+        table_data.append(row)
+    
+    # Create figure matching the style of other tables
+    n_rows = len(table_data)
+    n_cols = len(table_data[0])
+    
+    col_widths = [0.20, 0.065, 0.065, 0.065, 0.065, 0.07, 0.065, 0.065, 0.09, 0.13]  # Metric, B, E, S, R, RW, D, SW, GPT-4o, Winner
+    
+    fig_width = sum(col_widths) * 9
+    fig_height = max(4.5, n_rows * 0.42 + 1.5)  # Extra space for more rows
+    
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+    ax.axis('tight')
+    ax.axis('off')
+    
+    # Create table
+    table = ax.table(cellText=table_data, cellLoc='center', loc='center',
+                    colWidths=col_widths)
+    
+    # Style the table
+    table.auto_set_font_size(False)
+    table.set_fontsize(10)
+    table.scale(1, 2.0)
+    
+    # Color header row (matching blue from other tables)
+    for i in range(n_cols):
+        cell = table[(0, i)]
+        cell.set_facecolor('#2E86AB')
+        cell.set_text_props(weight='bold', color='white', fontsize=11)
+    
+    # Bold winner cells
+    for row, col in bold_cells:
+        cell = table[(row, col)]
+        cell.set_text_props(weight='bold', color='#2E86AB', fontsize=11)
+    
+    # Color winner column (last column)
+    for i in range(1, n_rows):
+        cell = table[(i, n_cols - 1)]
+        cell.set_facecolor('#E8F4F8')
+        cell.set_text_props(weight='bold', color='#2E86AB')
+    
+    # Alternate row colors and handle separator rows
+    for i in range(1, n_rows):
+        # Check if this is a separator row
+        is_separator = '─' in str(table_data[i][0])
+        
+        for j in range(n_cols):
+            if j != n_cols - 1:  # Skip winner column
+                if is_separator:
+                    # Special styling for separator row
+                    table[(i, j)].set_facecolor('#D0D0D0')
+                    table[(i, j)].set_text_props(weight='bold', fontsize=9)
+                elif i % 2 == 0:
+                    table[(i, j)].set_facecolor('#F5F5F5')
+                else:
+                    table[(i, j)].set_facecolor('white')
+    
+    # Add title
+    plt.title('GPT-4o Action Plan Quality Assessment (Text Models)', 
+              fontsize=14, weight='bold', pad=20)
+    
+    # Add caption matching the style of other tables
+    caption = (
+        "Legend: B=Baseline | S=Standard | R=RL | RW=RW | D=DPO | SW=SW | GPT-4o=GPT-4o | "
+        "GPT-4o evaluates: Action Quality (5 dims) + Reasoning Quality (3 dims) + Overall (0-10 scale) | "
+        "Bold = Best score"
+    )
+    fig.text(0.5, 0.02, caption, ha='center', fontsize=9, 
+            style='italic', color='#555555', wrap=True)
+    
+    # Save
+    plt.savefig(output_path, bbox_inches='tight', dpi=300, facecolor='white')
+    plt.close()
+    
+    print(f"✅ GPT-4o Action Judge table saved to: {output_path}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Create GPT-4o Action Judge comparison table")
+    parser.add_argument("--baseline-dir", required=True, help="Baseline model directory")
+    parser.add_argument("--edit-only-dir", required=True, help="Edit-Only model directory")
+    parser.add_argument("--standard-text-dir", required=True, help="Standard text model directory")
+    parser.add_argument("--rl-text-dir", required=True, help="RL text model directory")
+    parser.add_argument("--rw-text-dir", required=True, help="RW text model directory")
+    parser.add_argument("--dpo-text-dir", required=True, help="DPO text model directory")
+    parser.add_argument("--sw-text-dir", required=True, help="SW text model directory")
+    parser.add_argument("--gpt4o-dir", required=True, help="GPT-4o model directory")
+    parser.add_argument("--output", required=True, help="Output PNG file path")
+    
+    args = parser.parse_args()
+    
+    model_dirs = {
+        "Baseline": args.baseline_dir,
+        "Edit-Only": args.edit_only_dir,
+        "Standard": args.standard_text_dir,
+        "RL": args.rl_text_dir,
+        "RW": args.rw_text_dir,
+        "DPO": args.dpo_text_dir,
+        "SW": args.sw_text_dir,
+        "GPT-4o": args.gpt4o_dir
+    }
+    
+    create_gpt_action_table(model_dirs, Path(args.output))
+
+if __name__ == "__main__":
+    main()

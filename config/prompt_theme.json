@@ -1,0 +1,155 @@
+{
+  "prompts": [
+    {
+      "id": 1,
+      "name": "Urban to Beach Vacation",
+      "generation": {
+        "text": "A modern city street scene with urban architecture, busy sidewalks, contemporary buildings, and metropolitan atmosphere",
+        "theme": "urban_modern",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to tropical beach vacation setting with white sand, crystal clear turquoise ocean, palm trees swaying in breeze, beach umbrellas, and relaxed sunny paradise vibes",
+        "target_theme": "beach_vacation",
+        "transformation_type": "urban_to_tropical"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Daylight Park to Halloween Night",
+      "generation": {
+        "text": "A peaceful park scene in bright daylight with green grass, walking paths, park benches, and cheerful daytime atmosphere",
+        "theme": "daylight_park",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to spooky Halloween night atmosphere with carved jack-o'-lanterns glowing, eerie fog rolling through, twisted bare trees, dark orange and purple tones, and haunting mysterious ambiance",
+        "target_theme": "halloween_night",
+        "transformation_type": "day_to_halloween"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Modern Office to Medieval Fantasy",
+      "generation": {
+        "text": "A professional modern office workspace with desks, computers, fluorescent lighting, and contemporary corporate interior design",
+        "theme": "modern_office",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to medieval fantasy tavern interior with rough stone walls, flickering torches casting dancing shadows, wooden tables and benches, mystical artifacts, and ancient atmospheric charm",
+        "target_theme": "medieval_fantasy",
+        "transformation_type": "modern_to_medieval"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Summer Garden to Winter Wonderland",
+      "generation": {
+        "text": "A lush summer garden bursting with colorful flowers, vibrant greenery, blooming plants, and warm sunny garden atmosphere",
+        "theme": "summer_garden",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to magical winter wonderland with everything covered in pristine white snow, sparkling icicles hanging from branches, frost-covered plants, cold blue-white color palette, and serene frozen beauty",
+        "target_theme": "winter_wonderland",
+        "transformation_type": "summer_to_winter"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Suburban Street to Cyberpunk Future",
+      "generation": {
+        "text": "A typical quiet suburban neighborhood street with traditional houses, neatly trimmed lawns, trees lining the sidewalk, and peaceful residential atmosphere",
+        "theme": "suburban_street",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to cyberpunk dystopian future with towering neon signs in Japanese and English, holographic advertisements floating in air, flying vehicles overhead, rain-slicked streets reflecting colorful lights, and high-tech gritty urban atmosphere",
+        "target_theme": "cyberpunk_future",
+        "transformation_type": "suburban_to_cyberpunk"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Cozy Living Room to Haunted Mansion",
+      "generation": {
+        "text": "A cozy modern living room with comfortable furniture, warm lighting, contemporary decor, and inviting homey atmosphere",
+        "theme": "cozy_living_room",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to creepy haunted mansion interior with thick cobwebs covering corners, dusty antique furniture, dim flickering candlelight, mysterious shadows, peeling wallpaper, and spine-chilling eerie atmosphere",
+        "target_theme": "haunted_mansion",
+        "transformation_type": "cozy_to_haunted"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Desert Landscape to Tropical Rainforest",
+      "generation": {
+        "text": "An arid desert landscape with golden sand dunes, scattered cacti, sparse vegetation, intense sunlight, and dry barren terrain",
+        "theme": "desert_landscape",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to dense tropical rainforest with lush green vegetation everywhere, cascading waterfalls, exotic colorful plants, misty humid air, vibrant wildlife, and rich biodiversity creating a jungle paradise",
+        "target_theme": "tropical_rainforest",
+        "transformation_type": "desert_to_jungle"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Modern Cafe to Wild West Saloon",
+      "generation": {
+        "text": "A contemporary coffee shop interior with modern minimalist decor, espresso machines, sleek furniture, and trendy cafe atmosphere",
+        "theme": "modern_cafe",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to classic Wild West saloon with weathered wooden bar counter, swinging batwing doors, vintage whiskey bottles on shelves, poker tables, rustic frontier decor, and authentic Old West atmosphere",
+        "target_theme": "wild_west_saloon",
+        "transformation_type": "modern_to_western"
+      }
+    },
+    {
+      "id": 9,
+      "name": "City Park to Underwater Realm",
+      "generation": {
+        "text": "A normal city park with paved pathways, park benches, trees, open grass areas, and typical urban green space atmosphere",
+        "theme": "city_park",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to magical underwater realm with colorful coral reefs, schools of tropical fish swimming by, aquatic plants swaying gently, blue-green ambient lighting, bubbles floating upward, and serene oceanic atmosphere",
+        "target_theme": "underwater_realm",
+        "transformation_type": "land_to_underwater"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Regular Bedroom to Space Station",
+      "generation": {
+        "text": "A regular bedroom with standard bed, nightstand, closet, window with curtains, and comfortable everyday sleeping quarters",
+        "theme": "regular_bedroom",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform to futuristic space station crew quarters with holographic displays floating in air, sleek metallic surfaces, circular windows showing stars and planets outside, zero-gravity elements, LED lighting strips, and advanced sci-fi technology atmosphere",
+        "target_theme": "space_station",
+        "transformation_type": "earth_to_space"
+      }
+    }
+  ]
+}
+

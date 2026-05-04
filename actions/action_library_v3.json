@@ -1,0 +1,679 @@
+{
+  "version": "v3.0",
+  "description": "ImageAgent Action Library V3 - 30 styling and transformation actions",
+  "design_philosophy": "Focuses on visual styling, artistic transformations, and aesthetic modifications while preserving content structure",
+  "actions": [
+    {
+      "id": "location_setting",
+      "name": "Location Setting",
+      "description": "Transform the environmental setting and location style",
+      "category": "THEME",
+      "parameters": {
+        "setting_type": {
+          "type": "string",
+          "description": "Type of location (urban, rural, coastal, mountain, desert, forest, underwater, space)",
+          "required": false
+        },
+        "setting_style": {
+          "type": "string",
+          "description": "Style of the setting (modern, rustic, tropical, arctic, fantasy)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Must preserve main subject",
+        "Should maintain scene coherence"
+      ]
+    },
+    {
+      "id": "architecture_style",
+      "name": "Architecture Style",
+      "description": "Change architectural aesthetics and building styles",
+      "category": "THEME",
+      "parameters": {
+        "style": {
+          "type": "string",
+          "description": "Architecture style (Gothic, Modern, Victorian, Brutalist, Art Deco, Minimalist)",
+          "required": false
+        },
+        "detail_level": {
+          "type": "string",
+          "description": "Level of architectural detail (simple, moderate, ornate)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve building structure",
+        "Maintain scale proportions"
+      ]
+    },
+    {
+      "id": "time_period_era",
+      "name": "Time Period Era",
+      "description": "Apply historical era styling and aesthetics",
+      "category": "THEME",
+      "parameters": {
+        "era": {
+          "type": "string",
+          "description": "Historical period (Ancient, Medieval, Renaissance, Victorian, 1920s, 1950s, 1980s, Future)",
+          "required": false
+        },
+        "authenticity": {
+          "type": "string",
+          "description": "Level of historical accuracy (stylized, authentic, fantasy)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain core composition",
+        "Keep subject recognizable"
+      ]
+    },
+    {
+      "id": "time_of_day",
+      "name": "Time of Day",
+      "description": "Transform lighting based on time of day",
+      "category": "LIGHTING",
+      "parameters": {
+        "time": {
+          "type": "string",
+          "description": "Time period (dawn, morning, noon, golden_hour, dusk, night, blue_hour)",
+          "required": false
+        },
+        "lighting_quality": {
+          "type": "string",
+          "description": "Quality of light (soft, harsh, dramatic, flat)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve subject visibility",
+        "Maintain color relationships"
+      ]
+    },
+    {
+      "id": "season_cycle",
+      "name": "Season Cycle",
+      "description": "Apply seasonal visual transformations",
+      "category": "THEME",
+      "parameters": {
+        "season": {
+          "type": "string",
+          "description": "Season (spring, summer, autumn, winter)",
+          "required": false
+        },
+        "intensity": {
+          "type": "string",
+          "description": "Seasonal effect strength (subtle, moderate, dramatic)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve scene structure",
+        "Maintain logical consistency"
+      ]
+    },
+    {
+      "id": "weather_conditions",
+      "name": "Weather Conditions",
+      "description": "Transform atmospheric weather styling",
+      "category": "ATMOSPHERE",
+      "parameters": {
+        "condition": {
+          "type": "string",
+          "description": "Weather type (clear, cloudy, rainy, snowy, stormy, foggy, misty)",
+          "required": false
+        },
+        "intensity": {
+          "type": "string",
+          "description": "Weather strength (light, moderate, heavy, extreme)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain subject clarity",
+        "Keep composition readable"
+      ]
+    },
+    {
+      "id": "mood_lighting",
+      "name": "Mood Lighting",
+      "description": "Apply emotional lighting transformations",
+      "category": "LIGHTING",
+      "parameters": {
+        "mood": {
+          "type": "string",
+          "description": "Emotional tone (romantic, dramatic, mysterious, cheerful, ominous, serene)",
+          "required": false
+        },
+        "color_influence": {
+          "type": "string",
+          "description": "Color tint (warm, cool, neutral, colored)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve subject legibility",
+        "Maintain tonal balance"
+      ]
+    },
+    {
+      "id": "color_grading",
+      "name": "Color Grading",
+      "description": "Professional color grading and correction",
+      "category": "COLOR",
+      "parameters": {
+        "grade_style": {
+          "type": "string",
+          "description": "Grading approach (cinematic, commercial, natural, stylized, vintage)",
+          "required": false
+        },
+        "look": {
+          "type": "string",
+          "description": "Specific look (teal_orange, bleach_bypass, golden, cool_blue, warm_sepia)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain color harmony",
+        "Preserve important details"
+      ]
+    },
+    {
+      "id": "artistic_medium",
+      "name": "Artistic Medium",
+      "description": "Transform to different artistic mediums",
+      "category": "STYLE",
+      "parameters": {
+        "medium": {
+          "type": "string",
+          "description": "Art medium (oil_paint, watercolor, acrylic, pencil, charcoal, ink, digital, mixed_media)",
+          "required": false
+        },
+        "technique_style": {
+          "type": "string",
+          "description": "Application style (loose, detailed, impressionistic, realistic)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve composition",
+        "Maintain subject recognition"
+      ]
+    },
+    {
+      "id": "atmospheric_effects",
+      "name": "Atmospheric Effects",
+      "description": "Add atmospheric depth and effects",
+      "category": "ATMOSPHERE",
+      "parameters": {
+        "effect_type": {
+          "type": "string",
+          "description": "Effect (fog, mist, haze, smoke, dust, volumetric_light, god_rays)",
+          "required": false
+        },
+        "density": {
+          "type": "string",
+          "description": "Effect density (light, medium, heavy, dramatic)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain subject visibility",
+        "Preserve depth perception"
+      ]
+    },
+    {
+      "id": "art_movement",
+      "name": "Art Movement",
+      "description": "Apply historical art movement aesthetics",
+      "category": "STYLE",
+      "parameters": {
+        "movement": {
+          "type": "string",
+          "description": "Art movement (Impressionism, Cubism, Surrealism, Art_Deco, Art_Nouveau, Pop_Art, Expressionism, Abstract)",
+          "required": false
+        },
+        "interpretation": {
+          "type": "string",
+          "description": "Application approach (subtle, moderate, strong, extreme)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Keep subject identifiable",
+        "Maintain visual interest"
+      ]
+    },
+    {
+      "id": "painting_technique",
+      "name": "Painting Technique",
+      "description": "Apply specific painting techniques and brush styles",
+      "category": "STYLE",
+      "parameters": {
+        "technique": {
+          "type": "string",
+          "description": "Technique (impasto, glazing, pointillism, stippling, sgraffito, scumbling, wet_on_wet)",
+          "required": false
+        },
+        "brush_quality": {
+          "type": "string",
+          "description": "Brush character (fine, medium, broad, textured)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve composition",
+        "Maintain readability"
+      ]
+    },
+    {
+      "id": "illustration_style",
+      "name": "Illustration Style",
+      "description": "Transform to illustration aesthetics",
+      "category": "STYLE",
+      "parameters": {
+        "style": {
+          "type": "string",
+          "description": "Illustration type (comic_book, manga, concept_art, children_book, editorial, technical, fantasy)",
+          "required": false
+        },
+        "line_quality": {
+          "type": "string",
+          "description": "Line character (bold, fine, sketchy, clean, none)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain clarity",
+        "Preserve important details"
+      ]
+    },
+    {
+      "id": "rendering_style",
+      "name": "Rendering Style",
+      "description": "Apply different rendering approaches",
+      "category": "STYLE",
+      "parameters": {
+        "render_type": {
+          "type": "string",
+          "description": "Rendering (photorealistic, stylized, cel_shaded, sketch, wireframe, low_poly, painterly)",
+          "required": false
+        },
+        "detail_level": {
+          "type": "string",
+          "description": "Detail amount (minimal, moderate, high, ultra)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Keep subject clear",
+        "Maintain composition"
+      ]
+    },
+    {
+      "id": "texture_overlay",
+      "name": "Texture Overlay",
+      "description": "Apply surface texture overlays",
+      "category": "STYLE",
+      "parameters": {
+        "texture": {
+          "type": "string",
+          "description": "Texture type (canvas, paper, fabric, wood_grain, metal, stone, concrete, aged)",
+          "required": false
+        },
+        "blend_intensity": {
+          "type": "string",
+          "description": "Texture strength (subtle, moderate, strong, dominant)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve image clarity",
+        "Maintain subject definition"
+      ]
+    },
+    {
+      "id": "filter_effects",
+      "name": "Filter Effects",
+      "description": "Apply photographic filter effects",
+      "category": "STYLE",
+      "parameters": {
+        "filter": {
+          "type": "string",
+          "description": "Filter type (vintage, cross_process, lomography, infrared, polaroid, sepia, cyanotype)",
+          "required": false
+        },
+        "strength": {
+          "type": "string",
+          "description": "Effect intensity (light, medium, strong, extreme)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain legibility",
+        "Preserve key features"
+      ]
+    },
+    {
+      "id": "color_palette",
+      "name": "Color Palette",
+      "description": "Apply specific color palette schemes",
+      "category": "COLOR",
+      "parameters": {
+        "palette_type": {
+          "type": "string",
+          "description": "Palette scheme (monochrome, duotone, complementary, analogous, triadic, pastel, neon, earth_tones)",
+          "required": false
+        },
+        "dominant_colors": {
+          "type": "string",
+          "description": "Primary colors in palette",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain tonal relationships",
+        "Preserve contrast"
+      ]
+    },
+    {
+      "id": "color_temperature",
+      "name": "Color Temperature",
+      "description": "Shift overall color temperature",
+      "category": "COLOR",
+      "parameters": {
+        "temperature": {
+          "type": "string",
+          "description": "Temperature shift (very_warm, warm, neutral, cool, very_cool, icy)",
+          "required": false
+        },
+        "intensity": {
+          "type": "string",
+          "description": "Shift strength (subtle, moderate, strong, extreme)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Keep subject natural",
+        "Maintain depth cues"
+      ]
+    },
+    {
+      "id": "saturation_intensity",
+      "name": "Saturation Intensity",
+      "description": "Adjust color saturation and vibrancy",
+      "category": "COLOR",
+      "parameters": {
+        "saturation_level": {
+          "type": "string",
+          "description": "Saturation (desaturated, muted, natural, vibrant, hyper_saturated)",
+          "required": false
+        },
+        "selective": {
+          "type": "boolean",
+          "description": "Apply selectively to certain colors",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve tonal values",
+        "Maintain color relationships"
+      ]
+    },
+    {
+      "id": "contrast_style",
+      "name": "Contrast Style",
+      "description": "Modify contrast characteristics",
+      "category": "COLOR",
+      "parameters": {
+        "contrast_type": {
+          "type": "string",
+          "description": "Contrast style (low_contrast, normal, high_contrast, hdr, crushed_blacks, blown_highlights)",
+          "required": false
+        },
+        "tonal_curve": {
+          "type": "string",
+          "description": "Curve shape (linear, s_curve, inverted_s, custom)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain detail visibility",
+        "Preserve subject definition"
+      ]
+    },
+    {
+      "id": "tonal_range",
+      "name": "Tonal Range",
+      "description": "Adjust tonal distribution and key",
+      "category": "COLOR",
+      "parameters": {
+        "key": {
+          "type": "string",
+          "description": "Tonal key (low_key, mid_key, high_key)",
+          "required": false
+        },
+        "distribution": {
+          "type": "string",
+          "description": "Tone emphasis (shadows, midtones, highlights, balanced)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve subject clarity",
+        "Maintain depth"
+      ]
+    },
+    {
+      "id": "lighting_style",
+      "name": "Lighting Style",
+      "description": "Apply cinematic lighting techniques",
+      "category": "LIGHTING",
+      "parameters": {
+        "technique": {
+          "type": "string",
+          "description": "Lighting technique (rembrandt, butterfly, split, rim, loop, broad, short, dramatic)",
+          "required": false
+        },
+        "direction": {
+          "type": "string",
+          "description": "Light direction (front, side, back, top, bottom, mixed)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain subject form",
+        "Preserve important details"
+      ]
+    },
+    {
+      "id": "light_quality",
+      "name": "Light Quality",
+      "description": "Modify light hardness and diffusion",
+      "category": "LIGHTING",
+      "parameters": {
+        "quality": {
+          "type": "string",
+          "description": "Light character (hard, soft, diffused, specular, mixed)",
+          "required": false
+        },
+        "source_type": {
+          "type": "string",
+          "description": "Source character (natural, artificial, mixed, magical)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Keep subject visible",
+        "Maintain dimensional form"
+      ]
+    },
+    {
+      "id": "shadow_treatment",
+      "name": "Shadow Treatment",
+      "description": "Style shadow characteristics",
+      "category": "LIGHTING",
+      "parameters": {
+        "shadow_style": {
+          "type": "string",
+          "description": "Shadow type (dramatic, minimal, colored, long, short, stylized)",
+          "required": false
+        },
+        "shadow_density": {
+          "type": "string",
+          "description": "Shadow darkness (light, medium, deep, black)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve depth cues",
+        "Maintain composition"
+      ]
+    },
+    {
+      "id": "glow_effects",
+      "name": "Glow Effects",
+      "description": "Add luminescent and glow effects",
+      "category": "LIGHTING",
+      "parameters": {
+        "glow_type": {
+          "type": "string",
+          "description": "Glow style (neon, golden_hour, bioluminescence, magic, energy, soft_glow)",
+          "required": false
+        },
+        "intensity": {
+          "type": "string",
+          "description": "Glow strength (subtle, moderate, strong, intense)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain subject definition",
+        "Control bloom"
+      ]
+    },
+    {
+      "id": "atmospheric_depth",
+      "name": "Atmospheric Depth",
+      "description": "Apply atmospheric perspective and depth haze",
+      "category": "ATMOSPHERE",
+      "parameters": {
+        "depth_style": {
+          "type": "string",
+          "description": "Depth effect (aerial_perspective, depth_haze, layered_atmosphere, color_fade)",
+          "required": false
+        },
+        "strength": {
+          "type": "string",
+          "description": "Effect strength (subtle, moderate, strong, dramatic)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain foreground clarity",
+        "Preserve spatial relationships"
+      ]
+    },
+    {
+      "id": "motion_aesthetics",
+      "name": "Motion Aesthetics",
+      "description": "Apply motion and time-based visual effects",
+      "category": "EFFECTS",
+      "parameters": {
+        "motion_type": {
+          "type": "string",
+          "description": "Motion effect (motion_blur, freeze_frame, long_exposure, speed_lines, time_slice)",
+          "required": false
+        },
+        "direction": {
+          "type": "string",
+          "description": "Motion direction if applicable",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Keep subject identifiable",
+        "Maintain composition"
+      ]
+    },
+    {
+      "id": "lens_character",
+      "name": "Lens Character",
+      "description": "Apply lens-specific optical characteristics",
+      "category": "EFFECTS",
+      "parameters": {
+        "lens_effect": {
+          "type": "string",
+          "description": "Lens property (bokeh, vignette, lens_flare, chromatic_aberration, distortion, tilt_shift)",
+          "required": false
+        },
+        "strength": {
+          "type": "string",
+          "description": "Effect intensity (subtle, moderate, strong, stylized)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve subject focus",
+        "Maintain image quality"
+      ]
+    },
+    {
+      "id": "grain_noise",
+      "name": "Grain and Noise",
+      "description": "Add film grain or digital noise styling",
+      "category": "EFFECTS",
+      "parameters": {
+        "grain_type": {
+          "type": "string",
+          "description": "Grain style (film_grain, digital_noise, halftone, texture_noise, organic)",
+          "required": false
+        },
+        "amount": {
+          "type": "string",
+          "description": "Grain quantity (light, moderate, heavy, extreme)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Maintain detail visibility",
+        "Preserve subject clarity"
+      ]
+    },
+    {
+      "id": "sharpness_softness",
+      "name": "Sharpness and Softness",
+      "description": "Adjust overall focus quality and sharpness",
+      "category": "EFFECTS",
+      "parameters": {
+        "focus_style": {
+          "type": "string",
+          "description": "Focus quality (sharp_detail, soft_focus, dreamy, selective_focus, deep_focus, shallow)",
+          "required": false
+        },
+        "application": {
+          "type": "string",
+          "description": "Application method (global, selective, gradual)",
+          "required": false
+        }
+      },
+      "constraints": [
+        "Preserve important details",
+        "Maintain composition readability"
+      ]
+    }
+  ],
+  "metadata": {
+    "total_actions": 30,
+    "max_actions_per_plan": 5,
+    "categories": {
+      "THEME": "Environment and thematic transformations",
+      "STYLE": "Artistic and aesthetic styling",
+      "LIGHTING": "Light and shadow modifications",
+      "COLOR": "Color grading and palette adjustments",
+      "ATMOSPHERE": "Atmospheric and environmental effects",
+      "VISUAL_EFFECTS": "Post-processing and visual enhancements"
+    }
+  }
+}

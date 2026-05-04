@@ -1,0 +1,23 @@
+# Core only - install one by one
+transformers>=4.47.1
+diffusers>=0.32.1
+accelerate>=1.2.1
+datasets>=3.5.0
+trl>=0.12.0
+peft>=0.13.0
+bitsandbytes>=0.45.0
+einops>=0.7.0
+wandb
+tensorboard
+gradio>=5.24.0
+pillow>=11.1.0
+sentencepiece>=0.2.0
+huggingface_hub
+numpy
+scipy
+matplotlib
+seaborn
+tqdm
+omegaconf>=2.3.0
+safetensors>=0.4.0
+h5py  # For cached embeddings storage

@@ -1,0 +1,656 @@
+{
+  "version": "2.1",
+  "description": "Theme & Style transformation action library with 10 orthogonal actions (9 THEME + 1 STYLE)",
+  "design_philosophy": "Each action controls ONE specific dimension of theme/style transformation. Actions focus on BOLD, NOTICEABLE changes to scene setting (THEME) or artistic rendering (STYLE). Actions are composable (2-5 per transformation) and non-overlapping.",
+  "actions": [
+    {
+      "id": "location_setting",
+      "name": "Location Setting",
+      "description": "Change the physical location/environment type only (where the scene takes place)",
+      "category": "scene_level",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_location": {
+          "type": "enum",
+          "values": [
+            "urban_city", "suburban_neighborhood", "rural_village", "industrial_zone", "commercial_district",
+            "beach_coast", "tropical_island", "ocean_open_water", "underwater_reef", "arctic_ice",
+            "forest_temperate", "jungle_tropical", "desert_sand", "mountain_rocky", "canyon_valley",
+            "plains_grassland", "swamp_wetland", "cave_underground", "volcano_lava",
+            "space_station", "alien_planet", "fantasy_castle", "medieval_town", "cyberpunk_city",
+            "post_apocalyptic", "haunted_mansion", "temple_shrine", "palace_interior", "office_modern", "bedroom_interior"
+          ],
+          "required": true,
+          "description": "Current physical location type"
+        },
+        "target_location": {
+          "type": "enum",
+          "values": [
+            "urban_city", "suburban_neighborhood", "rural_village", "industrial_zone", "commercial_district",
+            "beach_coast", "tropical_island", "ocean_open_water", "underwater_reef", "arctic_ice",
+            "forest_temperate", "jungle_tropical", "desert_sand", "mountain_rocky", "canyon_valley",
+            "plains_grassland", "swamp_wetland", "cave_underground", "volcano_lava",
+            "space_station", "alien_planet", "fantasy_castle", "medieval_town", "cyberpunk_city",
+            "post_apocalyptic", "haunted_mansion", "temple_shrine", "palace_interior", "office_modern", "bedroom_interior"
+          ],
+          "required": true,
+          "description": "Desired physical location type"
+        },
+        "replace_mode": {
+          "type": "enum",
+          "values": ["partial", "complete"],
+          "default": "complete",
+          "description": "Partial blends old with new, complete fully replaces"
+        },
+        "preserve_foreground": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep main subjects unchanged while transforming environment"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Transform city to tropical beach",
+            "Change mountains to coastal setting"
+          ]
+        }
+      },
+      "does_not_handle": ["Architecture style", "Time period", "Mood", "Color palette", "Weather"],
+      "example": {
+        "source_location": "urban_city",
+        "target_location": "beach_coast",
+        "replace_mode": "complete",
+        "preserve_foreground": true,
+        "description": "Transform urban city street into tropical beach coastline"
+      }
+    },
+    {
+      "id": "architecture_style",
+      "name": "Architecture Style",
+      "description": "Change building/structure architectural style only (how buildings look)",
+      "category": "scene_level",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_style": {
+          "type": "enum",
+          "values": [
+            "modern_minimalist", "contemporary_glass", "brutalist_concrete", "art_deco_geometric",
+            "victorian_ornate", "medieval_stone", "renaissance_classical", "baroque_elaborate",
+            "japanese_traditional", "moroccan_islamic", "greek_classical", "roman_imperial",
+            "gothic_cathedral", "industrial_warehouse", "steampunk_mechanical", "cyberpunk_neon",
+            "futuristic_sleek", "organic_biomorphic", "fantasy_magical", "ruins_ancient"
+          ],
+          "required": true,
+          "description": "Current architectural style"
+        },
+        "target_style": {
+          "type": "enum",
+          "values": [
+            "modern_minimalist", "contemporary_glass", "brutalist_concrete", "art_deco_geometric",
+            "victorian_ornate", "medieval_stone", "renaissance_classical", "baroque_elaborate",
+            "japanese_traditional", "moroccan_islamic", "greek_classical", "roman_imperial",
+            "gothic_cathedral", "industrial_warehouse", "steampunk_mechanical", "cyberpunk_neon",
+            "futuristic_sleek", "organic_biomorphic", "fantasy_magical", "ruins_ancient"
+          ],
+          "required": true,
+          "description": "Desired architectural style"
+        },
+        "detail_level": {
+          "type": "enum",
+          "values": ["minimal", "moderate", "ornate"],
+          "default": "moderate",
+          "description": "Level of architectural detail and ornamentation"
+        },
+        "material_type": {
+          "type": "enum",
+          "values": ["stone", "wood", "metal", "glass", "concrete", "brick", "marble", "mixed"],
+          "default": "mixed",
+          "description": "Primary building material"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Transform chalet to beach hut",
+            "Change gothic to modern style"
+          ]
+        }
+      },
+      "does_not_handle": ["Location type", "Time period", "Mood", "Color palette"],
+      "example": {
+        "source_style": "modern_minimalist",
+        "target_style": "victorian_ornate",
+        "detail_level": "ornate",
+        "material_type": "wood",
+        "description": "Transform modern minimalist buildings into ornate Victorian architecture with wooden details"
+      }
+    },
+    {
+      "id": "time_period_era",
+      "name": "Time Period Era",
+      "description": "Change props, objects, and technology to match a historical/future era (when it exists)",
+      "category": "scene_level",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_era": {
+          "type": "enum",
+          "values": [
+            "prehistoric_stone_age", "ancient_classical", "medieval_dark_ages", "renaissance_1500s",
+            "baroque_1700s", "victorian_1800s", "art_nouveau_1900s", "art_deco_1920s",
+            "mid_century_1950s", "contemporary_2000s", "near_future_2050", "far_future_2200",
+            "cyberpunk_dystopia", "steampunk_alternate", "solarpunk_green_future"
+          ],
+          "required": true,
+          "description": "Current time period"
+        },
+        "target_era": {
+          "type": "enum",
+          "values": [
+            "prehistoric_stone_age", "ancient_classical", "medieval_dark_ages", "renaissance_1500s",
+            "baroque_1700s", "victorian_1800s", "art_nouveau_1900s", "art_deco_1920s",
+            "mid_century_1950s", "contemporary_2000s", "near_future_2050", "far_future_2200",
+            "cyberpunk_dystopia", "steampunk_alternate", "solarpunk_green_future"
+          ],
+          "required": true,
+          "description": "Target time period"
+        },
+        "technology_level": {
+          "type": "enum",
+          "values": ["none", "low", "medium", "high", "advanced"],
+          "default": "medium",
+          "description": "Level of technological advancement"
+        },
+        "period_accuracy": {
+          "type": "enum",
+          "values": ["stylized", "historically_accurate"],
+          "default": "stylized",
+          "description": "Stylized for artistic effect vs historically accurate"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Add educational props and materials",
+            "Replace modern with Victorian elements"
+          ]
+        }
+      },
+      "does_not_handle": ["Location", "Architecture style", "Mood", "Lighting", "Weather"],
+      "example": {
+        "source_era": "contemporary_2000s",
+        "target_era": "victorian_1800s",
+        "technology_level": "low",
+        "period_accuracy": "stylized",
+        "description": "Replace modern technology and objects with Victorian era props and 1800s period details"
+      }
+    },
+    {
+      "id": "time_of_day",
+      "name": "Day/Night Theme Transformation",
+      "description": "Transform scene between day and night with dramatic lighting and atmosphere changes. Creates BOLD, NOTICEABLE day→night or night→day transformation (not subtle lighting adjustment). Changes sun/moon position, sky color, shadow direction, and overall scene brightness.",
+      "category": "temporal_environmental",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_time": {
+          "type": "enum",
+          "values": [
+            "pre_dawn", "sunrise_golden", "morning_bright", "midday_overhead", "afternoon_warm",
+            "golden_hour_sunset", "dusk_twilight", "blue_hour", "night_moonlit", "midnight_dark"
+          ],
+          "required": true,
+          "description": "Current time of day"
+        },
+        "target_time": {
+          "type": "enum",
+          "values": [
+            "pre_dawn", "sunrise_golden", "morning_bright", "midday_overhead", "afternoon_warm",
+            "golden_hour_sunset", "dusk_twilight", "blue_hour", "night_moonlit", "midnight_dark"
+          ],
+          "required": true,
+          "description": "Desired time of day"
+        },
+        "sky_color": {
+          "type": "string",
+          "default": "auto",
+          "description": "Sky color palette for the time (auto-determined from time, or specify)"
+        },
+        "shadow_direction": {
+          "type": "enum",
+          "values": ["east", "southeast", "south", "southwest", "west", "overhead", "none"],
+          "default": "auto",
+          "description": "Direction of shadows based on sun/moon position"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Change midday to golden hour",
+            "Transform night to sunrise lighting"
+          ]
+        }
+      },
+      "does_not_handle": ["Weather", "Mood", "Season", "Artificial lighting"],
+      "example": {
+        "source_time": "midday_overhead",
+        "target_time": "golden_hour_sunset",
+        "sky_color": "warm_orange_pink",
+        "shadow_direction": "east",
+        "description": "Transform from harsh midday sun to warm golden hour sunset lighting"
+      }
+    },
+    {
+      "id": "season_cycle",
+      "name": "Season Cycle",
+      "description": "Change vegetation, foliage, and seasonal visual markers (what season is it)",
+      "category": "temporal_environmental",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_season": {
+          "type": "enum",
+          "values": ["spring_blooming", "summer_lush", "autumn_falling", "winter_bare"],
+          "required": true,
+          "description": "Current season"
+        },
+        "target_season": {
+          "type": "enum",
+          "values": ["spring_blooming", "summer_lush", "autumn_falling", "winter_bare"],
+          "required": true,
+          "description": "Target season"
+        },
+        "vegetation_state": {
+          "type": "enum",
+          "values": [
+            "blooming_flowers", "full_green", "autumn_colors", "bare_branches", "evergreen", "dead_withered"
+          ],
+          "required": true,
+          "description": "State of vegetation and foliage"
+        },
+        "ground_cover": {
+          "type": "enum",
+          "values": [
+            "snow_covered", "autumn_leaves", "spring_flowers", "lush_grass", "dry_grass", "mud_wet"
+          ],
+          "required": true,
+          "description": "What covers the ground"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Change autumn foliage to spring greenery",
+            "Transform summer to winter landscape"
+          ]
+        }
+      },
+      "does_not_handle": ["Weather", "Time of day", "Mood", "Temperature visual effects"],
+      "example": {
+        "source_season": "summer_lush",
+        "target_season": "winter_bare",
+        "vegetation_state": "bare_branches",
+        "ground_cover": "snow_covered",
+        "description": "Transform from summer with full greenery to winter with bare trees and snow-covered ground"
+      }
+    },
+    {
+      "id": "weather_conditions",
+      "name": "Weather Conditions",
+      "description": "Change weather phenomena (rain, snow, fog, storms) only",
+      "category": "temporal_environmental",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "weather_type": {
+          "type": "enum",
+          "values": [
+            "clear_sunny", "partly_cloudy", "overcast_gray", "light_rain", "heavy_rain", "thunderstorm",
+            "light_snow", "heavy_snow_blizzard", "fog_dense", "mist_light", "sandstorm", "hail"
+          ],
+          "required": true,
+          "description": "Type of weather condition"
+        },
+        "intensity": {
+          "type": "enum",
+          "values": ["light", "moderate", "heavy", "extreme"],
+          "default": "moderate",
+          "description": "Intensity of weather phenomenon"
+        },
+        "visibility": {
+          "type": "enum",
+          "values": ["clear", "reduced", "poor", "very_poor"],
+          "default": "clear",
+          "description": "How much weather obscures view"
+        },
+        "active_precipitation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether falling elements (rain, snow) are actively visible"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Add clear sunny weather",
+            "Change overcast to thunderstorm conditions"
+          ]
+        }
+      },
+      "does_not_handle": ["Season", "Time of day", "Mood", "Color palette"],
+      "example": {
+        "weather_type": "heavy_snow_blizzard",
+        "intensity": "heavy",
+        "visibility": "poor",
+        "active_precipitation": true,
+        "description": "Transform from clear weather to intense snowstorm with heavy snowfall and reduced visibility"
+      }
+    },
+    {
+      "id": "mood_lighting",
+      "name": "Mood Lighting",
+      "description": "Change emotional mood through artificial/accent lighting (how it feels)",
+      "category": "atmosphere_mood",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_mood": {
+          "type": "enum",
+          "values": [
+            "bright_cheerful", "soft_cozy", "mysterious_shadowy", "dramatic_cinematic", "ominous_dark",
+            "romantic_intimate", "energetic_vibrant", "melancholic_somber", "whimsical_playful",
+            "nostalgic_sepia", "tense_suspenseful", "serene_calm", "eerie_unsettling", "epic_grand", "hopeful_uplifting"
+          ],
+          "required": true,
+          "description": "Current emotional mood"
+        },
+        "target_mood": {
+          "type": "enum",
+          "values": [
+            "bright_cheerful", "soft_cozy", "mysterious_shadowy", "dramatic_cinematic", "ominous_dark",
+            "romantic_intimate", "energetic_vibrant", "melancholic_somber", "whimsical_playful",
+            "nostalgic_sepia", "tense_suspenseful", "serene_calm", "eerie_unsettling", "epic_grand", "hopeful_uplifting"
+          ],
+          "required": true,
+          "description": "Target emotional mood"
+        },
+        "accent_lighting": {
+          "type": "enum",
+          "values": [
+            "neon_signs", "candlelit_warm", "spotlight_dramatic", "rim_lighting", "backlit_silhouette",
+            "god_rays", "volumetric_fog_light", "colored_gels", "practical_lights", "ambient_glow"
+          ],
+          "required": true,
+          "description": "Specific artificial light sources for mood"
+        },
+        "shadow_depth": {
+          "type": "enum",
+          "values": ["none", "soft", "moderate", "deep", "dramatic"],
+          "default": "moderate",
+          "description": "Shadow intensity for dramatic effect"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Transform bright to mysterious mood",
+            "Add dramatic cinematic lighting"
+          ]
+        }
+      },
+      "does_not_handle": ["Natural sunlight (use time_of_day)", "Color grading", "Weather"],
+      "example": {
+        "source_mood": "bright_cheerful",
+        "target_mood": "mysterious_shadowy",
+        "accent_lighting": "candlelit_warm",
+        "shadow_depth": "deep",
+        "description": "Transform from bright cheerful lighting to mysterious shadowy mood with flickering candlelight"
+      }
+    },
+    {
+      "id": "color_grading",
+      "name": "Visual Mood Theme",
+      "description": "Transform the color atmosphere to create distinct emotional mood or theme. Creates DRAMATIC color-driven atmosphere changes (gothic dark, carnival vibrant, cozy warm, etc), not subtle color grading tweaks. Uses color as primary driver for thematic transformation.",
+      "category": "visual_style",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "source_palette": {
+          "type": "enum",
+          "values": [
+            "warm_sunset", "cool_blue", "neutral_balanced", "monochrome_bw", "sepia_vintage",
+            "pastel_soft", "neon_electric", "earth_natural", "jewel_rich", "desaturated_muted",
+            "high_contrast", "low_contrast", "golden_hour", "blue_hour", "orange_teal",
+            "purple_pink", "green_nature", "red_dramatic"
+          ],
+          "required": true,
+          "description": "Current color palette"
+        },
+        "target_palette": {
+          "type": "enum",
+          "values": [
+            "warm_sunset", "cool_blue", "neutral_balanced", "monochrome_bw", "sepia_vintage",
+            "pastel_soft", "neon_electric", "earth_natural", "jewel_rich", "desaturated_muted",
+            "high_contrast", "low_contrast", "golden_hour", "blue_hour", "orange_teal",
+            "purple_pink", "green_nature", "red_dramatic"
+          ],
+          "required": true,
+          "description": "Target color palette"
+        },
+        "saturation": {
+          "type": "enum",
+          "values": ["desaturated", "neutral", "enhanced", "hyper_saturated"],
+          "default": "neutral",
+          "description": "Overall color saturation level"
+        },
+        "contrast": {
+          "type": "enum",
+          "values": ["low", "normal", "high", "dramatic"],
+          "default": "normal",
+          "description": "Overall contrast level"
+        },
+        "temperature": {
+          "type": "enum",
+          "values": ["cool", "neutral", "warm", "extreme_cool", "extreme_warm"],
+          "default": "neutral",
+          "description": "Color temperature shift"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Apply cinematic orange-teal grading",
+            "Add warm sunset color palette"
+          ]
+        }
+      },
+      "does_not_handle": ["Lighting", "Mood", "Artistic style", "Weather"],
+      "example": {
+        "source_palette": "neutral_balanced",
+        "target_palette": "orange_teal",
+        "saturation": "enhanced",
+        "contrast": "high",
+        "temperature": "warm",
+        "description": "Apply cinematic orange-teal color grading with enhanced saturation and high contrast"
+      }
+    },
+    {
+      "id": "artistic_medium",
+      "name": "Artistic Medium",
+      "description": "Change the rendering/drawing style and artistic medium (how it's rendered)",
+      "category": "visual_style",
+      "theme_style_category": "STYLE",
+      "parameters": {
+        "source_medium": {
+          "type": "enum",
+          "values": [
+            "photorealistic", "hyperrealistic", "film_photography", "oil_painting_thick", "oil_painting_smooth",
+            "watercolor_flowing", "watercolor_dry", "acrylic_painting", "gouache", "ink_brush", "pen_ink_lines",
+            "pencil_sketch", "charcoal_sketch", "pastel_drawing", "digital_painting", "vector_art",
+            "3d_rendered", "low_poly", "pixel_art", "anime_cel_shaded", "cartoon_illustrated", "collage_mixed_media"
+          ],
+          "required": true,
+          "description": "Current rendering medium"
+        },
+        "target_medium": {
+          "type": "enum",
+          "values": [
+            "photorealistic", "hyperrealistic", "film_photography", "oil_painting_thick", "oil_painting_smooth",
+            "watercolor_flowing", "watercolor_dry", "acrylic_painting", "gouache", "ink_brush", "pen_ink_lines",
+            "pencil_sketch", "charcoal_sketch", "pastel_drawing", "digital_painting", "vector_art",
+            "3d_rendered", "low_poly", "pixel_art", "anime_cel_shaded", "cartoon_illustrated", "collage_mixed_media"
+          ],
+          "required": true,
+          "description": "Target rendering medium"
+        },
+        "technique": {
+          "type": "string",
+          "default": "auto",
+          "description": "Specific technique (e.g., 'thick impasto brushstrokes', 'fine cross-hatching')"
+        },
+        "art_movement": {
+          "type": "enum",
+          "values": [
+            "impressionism", "post_impressionism", "expressionism", "fauvism", "cubism", "surrealism",
+            "abstract_expressionism", "pop_art", "minimalism", "art_nouveau", "art_deco", "baroque", "renaissance", "none"
+          ],
+          "default": "none",
+          "description": "Optional historical art movement influence"
+        },
+        "texture_visibility": {
+          "type": "enum",
+          "values": ["none", "subtle", "moderate", "prominent"],
+          "default": "moderate",
+          "description": "How visible the medium texture is (canvas, paper, etc.)"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Transform photo to oil painting",
+            "Convert realistic to anime style"
+          ]
+        }
+      },
+      "does_not_handle": ["Color palette", "Mood", "Content changes", "Location"],
+      "example": {
+        "source_medium": "photorealistic",
+        "target_medium": "oil_painting_thick",
+        "technique": "thick impasto brushstrokes with palette knife",
+        "art_movement": "post_impressionism",
+        "texture_visibility": "prominent",
+        "description": "Transform photograph into Van Gogh-style thick oil painting with visible brushstrokes"
+      }
+    },
+    {
+      "id": "atmospheric_effects",
+      "name": "Lighting Theme",
+      "description": "Transform lighting to create dramatic thematic atmosphere. Creates BOLD lighting themes (noir shadows, cyberpunk neon, theater spotlight, cinematic rays, etc), not technical lighting adjustments. Focuses on atmospheric lighting as a theme-defining element.",
+      "category": "visual_style",
+      "theme_style_category": "THEME",
+      "parameters": {
+        "effect_type": {
+          "type": "enum",
+          "values": [
+            "dust_particles", "smoke_haze", "fog_volumetric", "mist_ground", "steam_rising",
+            "rain_falling", "snow_falling", "leaves_falling", "petals_floating", "ash_embers",
+            "sparkles_magical", "glowing_aura", "energy_particles", "light_beams_godrays", "lens_flare",
+            "bokeh_lights", "motion_blur", "speed_lines", "lens_distortion", "film_grain",
+            "holographic_glitch", "digital_artifacts", "cracks_damage", "debris_floating", "bioluminescence"
+          ],
+          "required": true,
+          "description": "Type of atmospheric effect"
+        },
+        "intensity": {
+          "type": "enum",
+          "values": ["subtle", "moderate", "heavy", "extreme"],
+          "default": "moderate",
+          "description": "Intensity of the effect"
+        },
+        "coverage": {
+          "type": "enum",
+          "values": ["localized", "widespread", "full_scene"],
+          "default": "widespread",
+          "description": "How much of the scene has the effect"
+        },
+        "color_tint": {
+          "type": "string",
+          "default": "auto",
+          "description": "Color tint of effect (e.g., 'blue_glow', 'orange_fire', 'green_magic')"
+        },
+        "description": {
+          "type": "string",
+          "required": true,
+          "description": "Concise 5-10 word transformation summary",
+          "max_words": 10,
+          "examples": [
+            "Add magical sparkles and shimmer",
+            "Apply fog and atmospheric haze"
+          ]
+        }
+      },
+      "does_not_handle": ["Core weather", "Mood", "Color grading", "Location"],
+      "example": {
+        "effect_type": "sparkles_magical",
+        "intensity": "heavy",
+        "coverage": "full_scene",
+        "color_tint": "blue_white_shimmer",
+        "description": "Add magical sparkles and shimmering particles throughout the scene with blue-white glow"
+      }
+    }
+  ],
+  "metadata": {
+    "total_actions": 10,
+    "max_actions_per_plan": 5,
+    "theme_style_distribution": {
+      "THEME": 9,
+      "STYLE": 1
+    },
+    "categories": {
+      "scene_level": ["location_setting", "architecture_style", "time_period_era"],
+      "temporal_environmental": ["time_of_day", "season_cycle", "weather_conditions"],
+      "atmosphere_mood": ["mood_lighting"],
+      "visual_style": ["color_grading", "artistic_medium", "atmospheric_effects"]
+    },
+    "theme_style_mapping": {
+      "THEME_actions": [
+        "location_setting",
+        "architecture_style",
+        "time_period_era",
+        "time_of_day",
+        "season_cycle",
+        "weather_conditions",
+        "mood_lighting",
+        "color_grading",
+        "atmospheric_effects"
+      ],
+      "STYLE_actions": [
+        "artistic_medium"
+      ]
+    },
+    "design_notes": {
+      "focus": "Theme & Style transformations - BOLD, NOTICEABLE changes",
+      "orthogonality": "Each action controls exactly one dimension of visual change",
+      "composability": "Combine 2-5 actions to create complex transformations",
+      "no_overlap": "Actions have clear boundaries and don't step on each other",
+      "atomic": "Each action is the smallest meaningful unit of change",
+      "transformation_emphasis": "Prioritize dramatic scene/style changes over subtle adjustments"
+    },
+    "version_date": "2025-01-21",
+    "replaces": "action_library_v2.json v2.0"
+  }
+}
+

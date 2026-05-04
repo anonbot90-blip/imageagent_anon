@@ -1,0 +1,71 @@
+# Planner Training Configuration - DPO Cached Embeddings Mode
+# Fine-tune Qwen3-VL using preference pairs with pre-computed vision embeddings
+# Learns to prefer high-quality plans over low-quality plans (3× faster with cached embeddings)
+
+model:
+  base_model: "Qwen/Qwen3-VL-8B-Instruct"
+  dtype: "bfloat16"
+  device: "cuda"
+  trust_remote_code: true
+  freeze_vision_encoder: true  # Vision encoder not needed (using cached embeddings)
+
+data:
+  training_data_path: "./training_data/cot_8b/dpo_vision/planner_training_data_dpo.json"
+  embeddings_path: "./training_data/cot_8b/dpo_vision/embeddings/vision_embeddings.h5"  # HDF5 file with cached embeddings
+  train_val_split: 0.9
+  batch_size: 1  # Reduce to fit DPO policy+reference on 4 GPUs
+  shuffle: true
+  num_workers: 4
+
+lora:
+  enabled: true
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  lora_dropout: 0.05
+  bias: "none"
+
+training:
+  num_epochs: 3
+  learning_rate: 2.0e-5
+  warmup_steps: 100
+  gradient_accumulation_steps: 4  # 8 GPUs × 1 batch × 4 accum = 32 effective batch (reduced for DPO memory)
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  save_steps: 25
+  eval_steps: 25
+  evaluation_strategy: "steps"
+  save_strategy: "steps"
+  logging_steps: 10
+  max_length: 2048
+  dpo_beta: 0.1  # Temperature parameter for DPO loss (controls KL penalty strength)
+
+hardware:
+  mixed_precision: "bf16"
+  gradient_checkpointing: true  # Enable for 8B model to save memory
+  use_8bit: false
+  num_gpus: 8
+  gpu_ids: "0,1,2,3,4,5,6,7"
+
+output:
+  output_dir: "./checkpoints/cot_8b/qwen3_vl_action_planner_vision_rl_dpo"
+  save_total_limit: 3
+  load_best_model_at_end: false  # Disabled to prevent OOM during final save - bash script will copy last checkpoint
+
+logging:
+  use_wandb: true
+  wandb_project: "action-planner-training"
+  wandb_run_name: "qwen3-vl-planner-vision-dpo"
+  report_to: "wandb"
+
+evaluation:
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+

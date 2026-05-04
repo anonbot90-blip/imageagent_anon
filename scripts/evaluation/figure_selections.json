@@ -1,0 +1,219 @@
+{
+  "teaser": [
+    {
+      "cfg": "simple_vision_8b",
+      "sample_id": "image_c93fc10f_569_regular_market",
+      "margin": 2.3,
+      "score": 7.8,
+      "opp": "rl",
+      "opp_score": 5.5,
+      "g25": 4.67,
+      "theme": "regular_market",
+      "method_picked": "sw"
+    },
+    {
+      "cfg": "simple_text_8b",
+      "sample_id": "image_d18723dd_252_winter_bare",
+      "margin": 1.8399999999999999,
+      "score": 8.67,
+      "opp": "edit_only",
+      "opp_score": 6.83,
+      "g25": 6.17,
+      "theme": "winter_bare",
+      "method_picked": "sw"
+    },
+    {
+      "cfg": "normal_text_4b",
+      "sample_id": "image_b5bf600b_268_classic_library",
+      "margin": 1.67,
+      "score": 8.5,
+      "opp": "rl",
+      "opp_score": 6.83,
+      "g25": 5.0,
+      "theme": "classic_library",
+      "method_picked": "sw"
+    },
+    {
+      "cfg": "complex_text_4b",
+      "sample_id": "image_1a10679a_v2_l2_0253_magical_atmospheric_depth_triple",
+      "margin": 0.8000000000000007,
+      "score": 9.3,
+      "opp": "edit_only",
+      "opp_score": 8.5,
+      "g25": 7.5,
+      "theme": "magical_atmospheric_depth",
+      "method_picked": "sw"
+    }
+  ],
+  "rw_sw": [
+    {
+      "cfg": "complex_vision_8b",
+      "sample_id": "image_6bf09359_v2_l2_0348_robot_contrast_style_triple",
+      "margin": 1.0,
+      "score": 9.5,
+      "opp": "standard",
+      "opp_score": 8.5,
+      "g25": 6.7,
+      "theme": "robot_contrast_style",
+      "method_picked": "sw"
+    },
+    {
+      "cfg": "simple_text_4b",
+      "sample_id": "image_1911b733_607_rural_village",
+      "margin": 1.87,
+      "score": 7.17,
+      "opp": "dpo",
+      "opp_score": 5.3,
+      "g25": 4.67,
+      "theme": "rural_village",
+      "method_picked": "rw"
+    },
+    {
+      "cfg": "normal_vision_4b",
+      "sample_id": "image_650f8c1e_255_minimalist_bathroom",
+      "margin": 1.67,
+      "score": 7.17,
+      "opp": "edit_only",
+      "opp_score": 5.5,
+      "g25": 6.17,
+      "theme": "minimalist_bathroom",
+      "method_picked": "rw"
+    },
+    {
+      "cfg": "complex_text_8b",
+      "sample_id": "image_448f6450_v2_l2_0260_busy_illustration_style_triple",
+      "margin": 1.6000000000000005,
+      "score": 8.3,
+      "opp": "dpo",
+      "opp_score": 6.7,
+      "g25": 2.83,
+      "theme": "busy_illustration_style",
+      "method_picked": "rw"
+    },
+    {
+      "cfg": "complex_vision_4b",
+      "sample_id": "image_12f06499_v2_l3_0085_industrial_illustration_style_multi",
+      "margin": 1.5,
+      "score": 8.0,
+      "opp": "baseline",
+      "opp_score": 6.5,
+      "g25": 6.0,
+      "theme": "industrial_illustration_style",
+      "method_picked": "rw"
+    }
+  ],
+  "dpo": [
+    {
+      "cfg": "normal_text_4b",
+      "sample_id": "image_6dc6b4d2_159_industrial_loft",
+      "margin": 2.87,
+      "score": 8.67,
+      "opp": "edit_only",
+      "opp_score": 5.8,
+      "g25": 6.5,
+      "theme": "industrial_loft",
+      "method_picked": "dpo"
+    },
+    {
+      "cfg": "simple_vision_8b",
+      "sample_id": "image_42787a0e_543_plain_field",
+      "margin": 1.67,
+      "score": 9.5,
+      "opp": "sw",
+      "opp_score": 7.83,
+      "g25": 6.3,
+      "theme": "plain_field",
+      "method_picked": "dpo"
+    },
+    {
+      "cfg": "simple_text_4b",
+      "sample_id": "image_4ed50671_227_prehistoric_stone_age",
+      "margin": 1.17,
+      "score": 8.5,
+      "opp": "baseline",
+      "opp_score": 7.33,
+      "g25": 6.3,
+      "theme": "prehistoric_stone_age",
+      "method_picked": "dpo"
+    },
+    {
+      "cfg": "normal_vision_4b",
+      "sample_id": "image_209b12bc_78_classic_library",
+      "margin": 1.0300000000000002,
+      "score": 8.33,
+      "opp": "sw",
+      "opp_score": 7.3,
+      "g25": 6.3,
+      "theme": "classic_library",
+      "method_picked": "dpo"
+    },
+    {
+      "cfg": "complex_text_8b",
+      "sample_id": "image_e2820beb_v2_l1_0231_ancient_time_of_day_dual",
+      "margin": 0.8700000000000001,
+      "score": 8.67,
+      "opp": "standard",
+      "opp_score": 7.8,
+      "g25": 6.5,
+      "theme": "ancient_time_of_day",
+      "method_picked": "dpo"
+    }
+  ],
+  "rl": [
+    {
+      "cfg": "simple_vision_4b",
+      "sample_id": "image_6f2e7774_838_eerie_unsettling",
+      "margin": 1.7000000000000002,
+      "score": 8.5,
+      "opp": "sw",
+      "opp_score": 6.8,
+      "g25": 3.0,
+      "theme": "eerie_unsettling",
+      "method_picked": "rl"
+    },
+    {
+      "cfg": "simple_text_4b",
+      "sample_id": "image_45a4210a_114_office_modern",
+      "margin": 1.5,
+      "score": 9.0,
+      "opp": "rw",
+      "opp_score": 7.5,
+      "g25": 5.33,
+      "theme": "office_modern",
+      "method_picked": "rl"
+    },
+    {
+      "cfg": "simple_vision_8b",
+      "sample_id": "image_f221c036_54_normal_highway",
+      "margin": 1.33,
+      "score": 8.83,
+      "opp": "standard",
+      "opp_score": 7.5,
+      "g25": 3.17,
+      "theme": "normal_highway",
+      "method_picked": "rl"
+    },
+    {
+      "cfg": "complex_vision_8b",
+      "sample_id": "image_a352f4b4_v2_l3_0078_elderly_tonal_range_multi",
+      "margin": 0.33999999999999986,
+      "score": 8.67,
+      "opp": "sw",
+      "opp_score": 8.33,
+      "g25": 5.5,
+      "theme": "elderly_tonal_range",
+      "method_picked": "rl"
+    },
+    {
+      "cfg": "normal_vision_4b",
+      "sample_id": "image_bdfe2fe2_130_zen_meditation_room",
+      "margin": 1.17,
+      "score": 8.0,
+      "opp": "standard",
+      "opp_score": 6.83,
+      "g25": 5.0,
+      "theme": "zen_meditation_room",
+      "method_picked": "rl"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+evaluation:
+  num_samples: 200
+  checkpoint_interval: 2
+  category: complex
+  model_size: 8b
+  modality: text
+data:
+  results_dir: imageagent_results_complex_v2_10k_cot
+  trajectory_dir: training_data/complex/cot_8b_trajectory
+  test_samples_file: training_data/complex/cot_8b_trajectory/test_samples_cot_8b.txt
+  output_dir: evaluation_results/complex/text_parallel_cot_8b_trajectory
+action_library: actions/action_library_complex.json
+models:
+  baseline:
+    name: Baseline
+    checkpoint: Qwen/Qwen3-VL-8B-Instruct
+    gpu: 7
+    type: pretrained
+  edit_only:
+    name: Edit-Only
+    checkpoint: none
+    gpu: 1
+    type: edit_only
+  standard:
+    name: Standard
+    checkpoint: checkpoints/complex/cot_8b_trajectory/standard/final
+    gpu: 2
+    type: finetuned
+  rl:
+    name: RL
+    checkpoint: checkpoints/complex/cot_8b_trajectory/rl/final
+    gpu: 3
+    type: finetuned
+  rw:
+    name: RW
+    checkpoint: checkpoints/complex/cot_8b_trajectory/rw/final
+    gpu: 4
+    type: finetuned
+  dpo:
+    name: DPO
+    checkpoint: checkpoints/complex/cot_8b_trajectory/dpo/final
+    gpu: 5
+    type: finetuned
+  sw:
+    name: SW
+    checkpoint: checkpoints/complex/cot_8b_trajectory/sw/final
+    gpu: 6
+    type: finetuned
+  gpt4o:
+    name: GPT-4o
+    checkpoint: api
+    gpu: null
+    type: api
+image_editor:
+  type: qwen
+  checkpoint: Qwen/Qwen-Image-Edit-20B
+  config: null
+gpt_judge:
+  enabled: true
+  action_judge: true
+  image_judge: true
+  azure_endpoint: https://YOUR_AZURE_OPENAI_ENDPOINT.openai.azure.com/
+  api_key: ""  # Set via AZURE_OPENAI_API_KEY environment variable (source credentials.sh)
+  api_version: 2024-12-01-preview
+  model: gpt-4o
+  rate_limit_delay: 0.5
+reward_model:
+  enabled: true
+  checkpoint: Qwen/Qwen3-VL-8B-Instruct

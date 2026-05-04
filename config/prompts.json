@@ -1,0 +1,40 @@
+{
+  "prompts": [
+    {
+      "id": 1,
+      "text": "A professional corporate headshot of a businesswoman with natural lighting and sharp focus",
+      "style": "photorealistic",
+      "model": "fast",
+      "resolution": [1024, 1024]
+    },
+    {
+      "id": 2,
+      "text": "A beautiful oil painting of a mountain landscape at sunset in the style of Bob Ross",
+      "style": "oil_painting",
+      "model": "dev",
+      "resolution": [1248, 832]
+    },
+    {
+      "id": 3,
+      "text": "A digital art illustration of a futuristic city with neon lights and flying cars",
+      "style": "digital_art",
+      "model": "fast",
+      "resolution": [832, 1248]
+    },
+    {
+      "id": 4,
+      "text": "A bustling marketplace in Morocco with vendors, spices, and traditional architecture",
+      "style": "documentary",
+      "model": "dev",
+      "resolution": [1168, 880]
+    },
+    {
+      "id": 5,
+      "text": "A magical forest scene with glowing mushrooms and ethereal light beams",
+      "style": "fantasy",
+      "model": "full",
+      "resolution": [880, 1168]
+    }
+  ]
+}
+

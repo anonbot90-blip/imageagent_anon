@@ -1,0 +1,67 @@
+# Planner Training Configuration
+# Fine-tune Qwen3-VL to predict structured action plans
+
+model:
+  base_model: "Qwen/Qwen3-VL-4B-Instruct"  # Same as image analyzer
+  dtype: "bfloat16"
+  device: "cuda"
+  trust_remote_code: true
+
+data:
+  training_data_path: "./planner_training_data/planner_training_data.json"
+  train_val_split: 0.9
+  batch_size: 2  # Per-GPU batch size (8 GPUs × 2 × 2 accum = 32 effective batch)
+  shuffle: true
+  num_workers: 4  # Parallel data loading (4 workers per GPU process)
+
+lora:
+  enabled: true
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  lora_dropout: 0.05
+  bias: "none"
+
+training:
+  num_epochs: 3
+  learning_rate: 2.0e-5
+  warmup_steps: 100
+  gradient_accumulation_steps: 2  # 8 GPUs × 2 batch × 2 accum = 32 effective
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  save_steps: 25  # Save every 25 steps (more frequent = safer)
+  eval_steps: 25  # Eval every 25 steps (aligned with save_steps to avoid clash)
+  evaluation_strategy: "steps"  # Required for load_best_model_at_end
+  save_strategy: "steps"
+  logging_steps: 10
+  max_length: 2048  # Reduced from 4096 - actions are short
+
+hardware:
+  mixed_precision: "bf16"
+  gradient_checkpointing: false  # MUST be false for Qwen2-VL/Qwen3-VL (architecture incompatibility)
+  use_8bit: false
+  num_gpus: 8  # Number of GPUs to use (1, 2, 4, or 8)
+  gpu_ids: "0,1,2,3,4,5,6,7"  # Which GPUs to use (ALL 8 GPUs)
+
+output:
+  output_dir: "./checkpoints/qwen3_vl_action_planner"
+  save_total_limit: 3
+  load_best_model_at_end: true
+
+logging:
+  use_wandb: true
+  wandb_project: "action-planner-training"
+  wandb_run_name: "qwen3-vl-planner"
+  report_to: "wandb"
+
+evaluation:
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+

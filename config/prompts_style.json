@@ -1,0 +1,155 @@
+{
+  "prompts": [
+    {
+      "id": 1,
+      "name": "Photorealistic to Impressionist",
+      "generation": {
+        "text": "A professional corporate headshot of a businesswoman with natural lighting, sharp focus, and neutral background",
+        "style": "photorealistic",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform into an impressionist oil painting style with visible brushstrokes, vibrant colors, and soft edges in the manner of Claude Monet",
+        "target_style": "impressionist_painting",
+        "transformation_type": "photo_to_painting"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Studio Portrait to Watercolor",
+      "generation": {
+        "text": "A classic studio portrait with dramatic lighting, professional quality, dark background with rim lighting highlighting the subject",
+        "style": "studio_portrait",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Convert to delicate watercolor painting style with soft color bleeds, paper texture, and translucent washes creating an ethereal artistic effect",
+        "target_style": "watercolor_art",
+        "transformation_type": "photo_to_watercolor"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Street Photography to Charcoal Sketch",
+      "generation": {
+        "text": "Candid street photography capturing a person in an urban setting, natural moment with authentic expression and environmental context",
+        "style": "street_photography",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Render as dramatic charcoal sketch with strong contrast, expressive bold lines, and textured shading that emphasizes form and emotion",
+        "target_style": "charcoal_sketch",
+        "transformation_type": "photo_to_sketch"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Natural Documentary to Cyberpunk",
+      "generation": {
+        "text": "Natural documentary portrait in outdoor setting with soft daylight, authentic moment captured in nature with gentle lighting",
+        "style": "documentary",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform into cyberpunk style with neon lights, rain effects, holographic elements, and futuristic atmosphere inspired by Blade Runner",
+        "target_style": "cyberpunk_neon",
+        "transformation_type": "natural_to_scifi"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Minimalist Portrait to Low Poly 3D",
+      "generation": {
+        "text": "Minimalist portrait with clean white background, simple composition, and clear facial features with modern aesthetic",
+        "style": "minimalist",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Convert to low-poly 3D art style with geometric facets, solid colors, angular shapes, and modern digital aesthetic",
+        "target_style": "low_poly_3d",
+        "transformation_type": "photo_to_3d"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Cinematic Shot to Vaporwave",
+      "generation": {
+        "text": "Cinematic portrait with movie-quality lighting, shallow depth of field, dramatic composition, and professional color grading",
+        "style": "cinematic",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform into vaporwave aesthetic with pastel pink and cyan colors, glitch effects, retro 80s elements, and nostalgic digital atmosphere",
+        "target_style": "vaporwave",
+        "transformation_type": "cinematic_to_retro"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Fashion Editorial to Vintage Film",
+      "generation": {
+        "text": "High-fashion editorial portrait with dramatic styling, modern aesthetic, sharp details, and contemporary fashion photography techniques",
+        "style": "fashion_editorial",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Apply vintage 1970s film photography style with grain, faded colors, warm nostalgic tones, and analog camera characteristics",
+        "target_style": "vintage_film",
+        "transformation_type": "modern_to_vintage"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Environmental Portrait to HDR Dramatic",
+      "generation": {
+        "text": "Environmental portrait showing person in their natural habitat with balanced exposure, context-rich background, and storytelling elements",
+        "style": "environmental",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Enhance with HDR photography style featuring dramatic lighting, enhanced details, vivid colors, and intensified contrast for maximum impact",
+        "target_style": "hdr_dramatic",
+        "transformation_type": "natural_to_enhanced"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Fine Art Photography to Anime",
+      "generation": {
+        "text": "Fine art photography portrait with museum-quality composition, elegant lighting, and sophisticated aesthetic worthy of gallery display",
+        "style": "fine_art",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Convert to Japanese anime art style with cel-shading, bold outlines, large expressive eyes, vibrant colors, and manga-inspired features",
+        "target_style": "anime_manga",
+        "transformation_type": "photo_to_anime"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Professional Headshot to Pop Art",
+      "generation": {
+        "text": "Professional business headshot with clean background, confident expression, corporate styling, and sharp professional appearance",
+        "style": "professional_headshot",
+        "model": "fast",
+        "resolution": "1024x1024"
+      },
+      "edit": {
+        "text": "Transform into comic book pop art style with Ben-Day dots, bold primary colors, halftone effects, and Roy Lichtenstein-inspired aesthetic",
+        "target_style": "pop_art",
+        "transformation_type": "corporate_to_popart"
+      }
+    }
+  ]
+}
+
