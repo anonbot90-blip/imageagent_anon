@@ -109,9 +109,11 @@ The project uses three main datasets:
 
 | Dataset Directory | Dataset Name | Description |
 |------------------|--------------|-------------|
-| `imageagent_results_10000_cot` | **simple** | 10K samples, basic transformations |
-| `imageagent_results_normal_cot` | **normal** | 10K samples, complex transformations |
-| `imageagent_results_complex_v2_10k_cot` | **complex** | 10K samples, advanced transformations |
+| `imageagent_results_10000_cot` | **simple** | 10K samples, 1–2 step atomic edits |
+| `imageagent_results_normal_cot` | **normal (Regular)** | 10K samples, 3–5 step compositional edits with 10 interior design themes |
+| `imageagent_results_complex_v2_10k_cot` | **complex** | 10K samples, 3–5 step compositional edits with 83 diverse themes |
+
+> **Note:** The **normal** dataset in this codebase corresponds to the **Regular** dataset referred to in the paper. The names are used interchangeably.
 
 ## 🔧 Requirements
 
