@@ -8,7 +8,7 @@ ImageAgent is an end-to-end system that:
 1. **Generates** images using HiDream-I1
 2. **Analyzes** images using Qwen-VL models
 3. **Plans** actions using fine-tuned vision-language models
-4. **Edits** images using Qwen-Image-Edit or HiDream-E1
+4. **Edits** images using Qwen-Image-Edit (20B) — HiDream-E1 is also supported as an alternative
 5. **Evaluates** results using GPT-4o and standard metrics
 
 ## 🗂️ Project Structure
@@ -120,8 +120,9 @@ The project uses three main datasets:
 - Python 3.10+
 - CUDA-capable GPU (8+ GPUs recommended for training)
 - Conda (Miniconda or Anaconda)
-- HiDream-I1 and HiDream-E1 models
-- Qwen-VL models (4B/8B variants)
+- HiDream-I1 (image generation)
+- Qwen-Image-Edit (image editing, default) or HiDream-E1 (alternative editor)
+- Qwen-VL models (4B/8B variants, for analysis and action planning)
 
 ## ⚙️ Environment Setup
 
@@ -158,6 +159,7 @@ conda activate img-agent
 
 ### Data Generation
 - **HiDream-I1**: Image generation model
+- **Qwen-Image-Edit (20B)**: Primary image editing model (default: `--model-editor qwen`)
 - **Batch generators**: Efficient multi-image generation
 - **Pipeline orchestrator**: End-to-end data creation
 
